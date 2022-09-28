@@ -7,8 +7,9 @@ import (
 
 func main() {
 	a := app.New()
-	w := a.NewWindow("Hello World")
+	w := a.NewWindow("Hello World") // window title
 
-	w.SetContent(widget.NewLabel("Hello World!"))
+	text := widget.NewLabel("Hello World!") // window content
+	w.SetContent(text)                      // passing window content
 	w.ShowAndRun()
 }
