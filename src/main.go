@@ -2,7 +2,9 @@ package main
 
 import (
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/widget"
+	"image/color"
 	"time"
 )
 
@@ -20,6 +22,7 @@ func main() {
 
 	clock := widget.NewLabel(" ")
 	updateTime(clock)
+	w.SetContent(canvas.NewText("Time:", color.Black))
 	w.SetContent(clock)
 
 	// go routine for time update
