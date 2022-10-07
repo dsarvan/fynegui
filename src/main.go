@@ -24,6 +24,7 @@ func main() {
 	updateTime(clock)
 	w.SetContent(canvas.NewText("Time:", color.Black))
 	w.SetContent(clock)
+	w.SetContent(canvas.NewVerticalGradient(color.White, color.Black))
 
 	// go routine for time update
 	go func() {
