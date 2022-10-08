@@ -1,11 +1,15 @@
 package main
 
 import (
-	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/canvas"
-	"fyne.io/fyne/v2/widget"
 	"image/color"
 	"time"
+
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/widget"
 )
 
 func updateTime(clock *widget.Label) {
@@ -16,6 +20,26 @@ func updateTime(clock *widget.Label) {
 func main() {
 	a := app.New()
 	w := a.NewWindow("Clock") // window title
+
+	// menu list
+	file := fyne.NewMenu("File",
+		fyne.NewMenuItem("Quit", func() { a.Quit() }),
+	)
+
+	help := fyne.NewMenu("Help",
+		fyne.NewMenuItem("About", func() {
+			dialog.ShowCustom("About", "Close", container.NewVBox(
+				widget.NewLabel("Welcome to Gopher, a simple Desktop app created in Go with Fyne."),
+				widget.NewLabel("Version: v0.1"),
+				widget.NewLabel("Author: Saravanan Dayalan"),
+			), w)
+		}))
+
+	menu := fyne.NewMainMenu(
+		file,
+		help,
+	)
+	w.SetMainMenu(menu)
 
 	text := widget.NewLabel("Hello World!") // window content
 	w.SetContent(text)                      // passing window content
