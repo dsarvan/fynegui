@@ -35,9 +35,14 @@ func main() {
 			), w)
 		}))
 
+	license := fyne.NewMenu("License",
+		fyne.NewMenuItem("Quit", func() { a.Quit() }),
+	)
+
 	menu := fyne.NewMainMenu(
 		file,
 		help,
+		license,
 	)
 	w.SetMainMenu(menu)
 
