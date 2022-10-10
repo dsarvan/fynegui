@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"image/color"
 	"time"
 
@@ -45,6 +46,10 @@ func main() {
 		license,
 	)
 	w.SetMainMenu(menu)
+
+	dialog.ShowFileOpen(func(read fyne.URIReadCloser, err error) {
+		fmt.Println("User choose:", read.URI().String(), err)
+	}, w)
 
 	text := widget.NewLabel("Hello World!") // window content
 	w.SetContent(text)                      // passing window content
