@@ -19,7 +19,7 @@ func updateTime(clock *widget.Label) {
 
 func main() {
 	a := app.New()
-	w := a.NewWindow("Clock") // window title
+	w := a.NewWindow("Finite-difference time-domain method") // window title
 
 	// menu list
 	file := fyne.NewMenu("File",
