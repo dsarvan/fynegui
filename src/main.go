@@ -24,6 +24,11 @@ func main() {
 
 	// menu list
 	file := fyne.NewMenu("File",
+		fyne.NewMenuItem("Open", func() {
+			dialog.ShowFileOpen(func(read fyne.URIReadCloser, err error) {
+				fmt.Println("User choose:", read.URI().String(), err)
+			}, w)
+		}),
 		fyne.NewMenuItem("Quit", func() { a.Quit() }),
 	)
 
@@ -34,10 +39,14 @@ func main() {
 				widget.NewLabel("Version: v0.1"),
 				widget.NewLabel("Author: Saravanan Dayalan"),
 			), w)
-		}))
+		}),
+	)
 
 	license := fyne.NewMenu("License",
-		fyne.NewMenuItem("Quit", func() { a.Quit() }),
+		fyne.NewMenuItem("Info", func() {
+			dialog.ShowInformation("License",
+				"MIT License", w)
+		}),
 	)
 
 	menu := fyne.NewMainMenu(
@@ -46,10 +55,7 @@ func main() {
 		license,
 	)
 	w.SetMainMenu(menu)
-
-	dialog.ShowFileOpen(func(read fyne.URIReadCloser, err error) {
-		fmt.Println("User choose:", read.URI().String(), err)
-	}, w)
+	// menu list-ends
 
 	text := widget.NewLabel("Hello World!") // window content
 	w.SetContent(text)                      // passing window content
