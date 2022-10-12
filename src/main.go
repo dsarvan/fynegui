@@ -10,6 +10,8 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 )
 
@@ -20,6 +22,7 @@ func updateTime(clock *widget.Label) {
 
 func main() {
 	a := app.New()
+	a.Settings().SetTheme(theme.LightTheme())
 	w := a.NewWindow("Finite-difference time-domain method") // window title
 
 	// menu list
@@ -64,7 +67,8 @@ func main() {
 	updateTime(clock)
 	w.SetContent(canvas.NewText("Time:", color.Black))
 	w.SetContent(clock)
-	w.SetContent(canvas.NewVerticalGradient(color.White, color.Black))
+
+	//w.SetContent(canvas.NewVerticalGradient(color.White, color.Black))
 
 	// go routine for time update
 	go func() {
@@ -72,6 +76,11 @@ func main() {
 			updateTime(clock)
 		}
 	}()
+
+	// layout
+	contain := container.New(layout.NewGridLayoutWithColumns(2), text, clock)
+	contain.Resize(fyne.NewSize(120, 120))
+	w.SetContent(contain) // display the content
 
 	w.ShowAndRun()
 }
