@@ -23,7 +23,8 @@ func updateTime(clock *widget.Label) {
 func main() {
 	a := app.New()
 	a.Settings().SetTheme(theme.LightTheme())
-	w := a.NewWindow("Finite-difference time-domain method") // window title
+	w := a.NewWindow("FDTD") // window title
+	w.SetContent(canvas.NewText("Finite-difference time-domain method", color.Black))
 
 	// menu list
 	file := fyne.NewMenu("File",
@@ -38,9 +39,10 @@ func main() {
 	help := fyne.NewMenu("Help",
 		fyne.NewMenuItem("About", func() {
 			dialog.ShowCustom("About", "Close", container.NewVBox(
-				widget.NewLabel("Welcome to Gopher, a simple Desktop app created in Go with Fyne."),
+				widget.NewLabel("Finite-difference time-domain method"),
 				widget.NewLabel("Version: v0.1"),
 				widget.NewLabel("Author: Saravanan Dayalan"),
+				widget.NewLabel("Licence: MIT"),
 			), w)
 		}),
 	)
@@ -77,8 +79,16 @@ func main() {
 		}
 	}()
 
+	// processor selection
+	process := widget.NewRadioGroup([]string{"CPU", "MPI", "GPU"}, func(s string) { fmt.Println("Selected", s) })
+	w.SetContent(process)
+
+	// dimension selection
+	dimension := widget.NewSelectEntry([]string{"1-dimensional", "2-dimensional", "3-dimensional"})
+	w.SetContent(dimension)
+
 	// layout
-	contain := container.New(layout.NewGridLayoutWithColumns(2), text, clock)
+	contain := container.New(layout.NewGridLayoutWithColumns(4), text, clock, process, dimension)
 	contain.Resize(fyne.NewSize(120, 120))
 	w.SetContent(contain) // display the content
 
