@@ -33,6 +33,11 @@ func main() {
 				fmt.Println("User choose:", read.URI().String(), err)
 			}, w)
 		}),
+		fyne.NewMenuItem("Save", func() {
+			dialog.ShowFileSave(func(write fyne.URIWriteCloser, err error) {
+				fmt.Println("User choose:", write.URI().String(), err)
+			}, w)
+		}),
 		fyne.NewMenuItem("Quit", func() { a.Quit() }),
 	)
 
