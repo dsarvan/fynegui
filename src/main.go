@@ -84,10 +84,10 @@ func main() {
 	w.SetContent(process)
 
 	// dimension selection
-	dimension := widget.NewSelectEntry([]string{"1-dimensional", "2-dimensional", "3-dimensional"})
+	dimension := widget.NewSelect([]string{"1-dimensional", "2-dimensional", "3-dimensional"}, func(s string) { fmt.Println("Selected", s) })
 	w.SetContent(dimension)
 
-	// layout
+	// container grid layout
 	contain := container.New(layout.NewGridLayoutWithColumns(4), text, clock, process, dimension)
 	contain.Resize(fyne.NewSize(120, 120))
 	w.SetContent(contain) // display the content
