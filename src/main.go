@@ -92,8 +92,10 @@ func main() {
 	dimension := widget.NewSelect([]string{"1-dimensional", "2-dimensional", "3-dimensional"}, func(s string) { fmt.Println("Selected", s) })
 	w.SetContent(dimension)
 
+	vsplit := container.NewVSplit(widget.NewLabel("Process"), widget.NewLabel("Dimension"))
+
 	// container grid layout
-	contain := container.New(layout.NewGridLayoutWithColumns(4), text, clock, process, dimension)
+	contain := container.New(layout.NewGridLayoutWithColumns(5), text, clock, process, dimension, vsplit)
 	contain.Resize(fyne.NewSize(120, 120))
 	w.SetContent(contain) // display the content
 
