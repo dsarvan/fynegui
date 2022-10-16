@@ -96,11 +96,15 @@ func main() {
 	dimension := widget.NewSelect([]string{"1-dimensional", "2-dimensional", "3-dimensional"}, func(s string) { fmt.Println("Selected", s) })
 	w.SetContent(dimension)
 
-	vsplit := container.NewVSplit(widget.NewLabel("Process"), widget.NewLabel("Dimension"))
+	//vsplit := container.NewVSplit(widget.NewLabel("Process"); wdiget.NewRadioGroup([]string("CPU", "MPI", "GPU"}, func(s string) { fmt.Println("Selected", s) }),
+	//    widget.NewLabel("Dimension")); widget.NewSelect([]string{"1-dimensional", "2-dimensional", "3-dimensional"}, func(s string) { fmt.Println("Selected", s) }))
+
+	vsplit := container.NewVSplit(widget.NewRadioGroup([]string{"CPU", "MPI", "GPU"}, func(s string) { fmt.Println("Selected", s) }),
+		widget.NewSelect([]string{"1-dimensional", "2-dimensional", "3-dimensional"}, func(s string) { fmt.Println("Selected", s) }))
 	w.SetContent(vsplit)
 
 	// container grid layout
-	contain := container.New(layout.NewGridLayoutWithColumns(6), text, clock, process, dimension, vsplit, infinite)
+	contain := container.New(layout.NewGridLayoutWithColumns(4), text, clock, vsplit, infinite)
 	contain.Resize(fyne.NewSize(120, 120))
 	w.SetContent(contain) // display the content
 
