@@ -84,6 +84,10 @@ func main() {
 		}
 	}()
 
+	// infinite progress bar
+	infinite := widget.NewProgressBarInfinite()
+	w.SetContent(container.NewVBox(infinite))
+
 	// processor selection
 	process := widget.NewRadioGroup([]string{"CPU", "MPI", "GPU"}, func(s string) { fmt.Println("Selected", s) })
 	w.SetContent(process)
@@ -93,9 +97,10 @@ func main() {
 	w.SetContent(dimension)
 
 	vsplit := container.NewVSplit(widget.NewLabel("Process"), widget.NewLabel("Dimension"))
+	w.SetContent(vsplit)
 
 	// container grid layout
-	contain := container.New(layout.NewGridLayoutWithColumns(5), text, clock, process, dimension, vsplit)
+	contain := container.New(layout.NewGridLayoutWithColumns(6), text, clock, process, dimension, vsplit, infinite)
 	contain.Resize(fyne.NewSize(120, 120))
 	w.SetContent(contain) // display the content
 
