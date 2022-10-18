@@ -41,6 +41,14 @@ func main() {
 		fyne.NewMenuItem("Quit", func() { a.Quit() }),
 	)
 
+	edit := fyne.NewMenu("Edit",
+		fyne.NewMenuItem("Quit", func() { a.Quit() }),
+	)
+
+	view := fyne.NewMenu("View",
+		fyne.NewMenuItem("Set default layout", func() { a.Quit() }),
+	)
+
 	help := fyne.NewMenu("Help",
 		fyne.NewMenuItem("About", func() {
 			dialog.ShowCustom("About", "Close", container.NewVBox(
@@ -61,6 +69,8 @@ func main() {
 
 	menu := fyne.NewMainMenu(
 		file,
+		edit,
+		view,
 		help,
 		license,
 	)
@@ -84,6 +94,14 @@ func main() {
 		}
 	}()
 
+	acc := widget.NewAccordion(
+		widget.NewAccordionItem("Set default layout", widget.NewLabel("Hidden")),
+		widget.NewAccordionItem("Windows", widget.NewLabel("Object Library")),
+		widget.NewAccordionItem("Toolbars", widget.NewLabel("Hidden")),
+	)
+	acc.Items[1].Open = true
+	w.SetContent(acc)
+
 	// infinite progress bar
 	infinite := widget.NewProgressBarInfinite()
 	w.SetContent(container.NewVBox(infinite))
@@ -104,7 +122,7 @@ func main() {
 	w.SetContent(vsplit)
 
 	// container grid layout
-	contain := container.New(layout.NewGridLayoutWithColumns(4), text, clock, vsplit, infinite)
+	contain := container.New(layout.NewGridLayoutWithColumns(5), acc, text, clock, vsplit, infinite)
 	contain.Resize(fyne.NewSize(120, 120))
 	w.SetContent(contain) // display the content
 
