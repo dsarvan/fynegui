@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"image/color"
+	"log"
 	"time"
 
 	"fyne.io/fyne/v2"
@@ -46,7 +47,8 @@ func main() {
 	)
 
 	view := fyne.NewMenu("View",
-		fyne.NewMenuItem("Set default layout", func() { a.Quit() }),
+		fyne.NewMenuItem("Set default layout", func() {
+		}),
 	)
 
 	help := fyne.NewMenu("Help",
@@ -107,18 +109,12 @@ func main() {
 	w.SetContent(container.NewVBox(infinite))
 
 	// processor selection
-	process := widget.NewRadioGroup([]string{"CPU", "MPI", "GPU"}, func(s string) { fmt.Println("Selected", s) })
-	w.SetContent(process)
+	process := widget.NewRadioGroup([]string{"CPU", "MPI", "GPU"}, func(s string) { log.Println("Selected", s) })
 
 	// dimension selection
-	dimension := widget.NewSelect([]string{"1-dimensional", "2-dimensional", "3-dimensional"}, func(s string) { fmt.Println("Selected", s) })
-	w.SetContent(dimension)
+	dimension := widget.NewSelect([]string{"1-dimensional", "2-dimensional", "3-dimensional"}, func(s string) { log.Println("Selected", s) })
 
-	//vsplit := container.NewVSplit(widget.NewLabel("Process"); wdiget.NewRadioGroup([]string("CPU", "MPI", "GPU"}, func(s string) { fmt.Println("Selected", s) }),
-	//    widget.NewLabel("Dimension")); widget.NewSelect([]string{"1-dimensional", "2-dimensional", "3-dimensional"}, func(s string) { fmt.Println("Selected", s) }))
-
-	vsplit := container.NewVSplit(widget.NewRadioGroup([]string{"CPU", "MPI", "GPU"}, func(s string) { fmt.Println("Selected", s) }),
-		widget.NewSelect([]string{"1-dimensional", "2-dimensional", "3-dimensional"}, func(s string) { fmt.Println("Selected", s) }))
+	vsplit := container.NewVSplit(process, dimension)
 	w.SetContent(vsplit)
 
 	// container grid layout
